@@ -1,4 +1,5 @@
 {
+  "version": 2,
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
@@ -7,10 +8,7 @@
     { "source": "/restaurant.html", "destination": "/restaurant", "permanent": true },
     { "source": "/rooms.html", "destination": "/rooms", "permanent": true },
     { "source": "/thank-you.html", "destination": "/thank-you", "permanent": true }
-  ]
-}
-{
-  "version": 2,
+  ],
   "builds": [
     { "src": "index.html", "use": "@vercel/static" },
     { "src": "about.html", "use": "@vercel/static" },
