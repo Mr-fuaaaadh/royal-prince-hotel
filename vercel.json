@@ -16,8 +16,5 @@
     { "src": "restaurant.html", "use": "@vercel/static" },
     { "src": "rooms.html", "use": "@vercel/static" },
     { "src": "thank-you.html", "use": "@vercel/static" }
-  ],
-  "routes": [
-    { "src": "/(.*)", "dest": "$1" }
   ]
 }
