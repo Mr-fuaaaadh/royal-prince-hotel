@@ -3629,7 +3629,7 @@ quantity , .quantity_title {
 	overflow: hidden;
 }
 .fw-aminit-item {
-	position: relative;
+	/* position: relative; */
 	float: left;
 	width: 33.3333333%;
 	border-right: 1px solid rgba(255,255,255,.2);
@@ -3643,13 +3643,13 @@ quantity , .quantity_title {
 	bottom: 30px;
 	right: 30px;
 	left: 30px;
-	border: 1px solid rgba(255,255,255,.2);
+	/* border: 1px solid rgba(255,255,255,.2); */
 	border-radius: 10px;
-	background: rgba(39, 37, 53, .3);
+	/* background: rgba(39, 37, 53, .3); */
     transition: all .3s ease-in-out;
 }
 .fw-aminit-item:after {
-	content: '';
+	/* content: ''; */
 	position: absolute;
 	top: 50px;
 	left: 50%;
@@ -3664,7 +3664,7 @@ quantity , .quantity_title {
 .fw-aminit-item.act-index:before {
 	-webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
-	background: rgba(39, 37, 53, .8);
+	/* background: rgba(39, 37, 53, .8); */
 }
 .fw-aminit-wrap .fw-aminit-item:last-child {
 	border:none;
