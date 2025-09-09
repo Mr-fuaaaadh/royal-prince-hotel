@@ -281,7 +281,8 @@
                                                     </div>
                                                     <textarea name="comments" id="comments" cols="40" rows="3"
                                                         placeholder="Your Message:" required></textarea>
-                                                    <button class="commentssubmit" id="submit_cnt" type="submit">Send Message</button>
+                                                    <button class="commentssubmit" id="submit_cnt" type="submit">Send
+                                                        Message</button>
                                                 </fieldset>
                                             </form>
                                         </div>
@@ -440,16 +441,13 @@
     <script>
         document.getElementById("contactform").addEventListener("submit", async (e) => {
             e.preventDefault();
-
             const formData = Object.fromEntries(new FormData(e.target).entries());
-
             try {
                 const res = await fetch("/api/send-mail", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(formData)
                 });
-
                 const result = await res.json();
                 alert(result.message);
                 e.target.reset();
