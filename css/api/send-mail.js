@@ -5,19 +5,19 @@ export default async function handler(req, res) {
     const { name, email, comments } = req.body;
 
     let transporter = nodemailer.createTransport({
-      host: "smtp.yourdomain.com", // Replace with your SMTP server
+      host: "smtp.corusinfo.com", // Replace with your SMTP server
       port: 587,
       secure: false,
       auth: {
-        user: "contact@royalprincehotels.com",
-        pass: "your-email-password"
+        user: "m.fuhad@corusinfo.com",
+        pass: "Fuhad@2025"
       }
     });
 
     try {
       await transporter.sendMail({
         from: `"${name}" <${email}>`,
-        to: "contact@royalprincehotels.com",
+        to: "m.fuhad@corusinfo.com",
         subject: "New Contact Form Submission",
         text: `Name: ${name}\nEmail: ${email}\nMessage:\n${comments}`
       });

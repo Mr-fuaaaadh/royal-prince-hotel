@@ -178,7 +178,8 @@
         <!--  header end  -->
         <!--  section  -->
         <div class="content-section parallax-section hero-section hidden-section" data-scrollax-parent="true">
-            <div class="bg par-elem " data-bg="images/bg/burg-khalifa.jpg" data-scrollax="properties: { translateY: '30%' }"></div>
+            <div class="bg par-elem " data-bg="images/bg/burg-khalifa.jpg"
+                data-scrollax="properties: { translateY: '30%' }"></div>
             <div class="overlay"></div>
             <div class="container">
                 <div class="section-title">
@@ -265,8 +266,7 @@
                                         <div class="tbc_subtitle">Get In Touch</div>
                                         <div class="tbc-separator"></div>
                                         <div class="contactform-wrap">
-                                            <form class="comment-form" action="" method="POST"
-                                                id="contactform">
+                                            <form class="comment-form" action="" method="POST" id="contactform">
                                                 <fieldset>
                                                     <div id="message"></div>
                                                     <div class="row">
@@ -281,7 +281,7 @@
                                                     </div>
                                                     <textarea name="comments" id="comments" cols="40" rows="3"
                                                         placeholder="Your Message:" required></textarea>
-                                                    <button class="commentssubmit" id="submit_cnt">Send Message</button>
+                                                    <button class="commentssubmit" id="submit_cnt" type="submit">Send Message</button>
                                                 </fieldset>
                                             </form>
                                         </div>
@@ -436,6 +436,28 @@
     <script src="js/plugins.js"></script>
     <script src="js/scripts.js"></script>
     <script src="js/map.js"></script>
+
+    <script>
+        document.getElementById("contactform").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const formData = Object.fromEntries(new FormData(e.target).entries());
+
+            try {
+                const res = await fetch("/api/send-mail", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await res.json();
+                alert(result.message);
+                e.target.reset();
+            } catch (err) {
+                alert("Error sending message. Try again.");
+            }
+        });
+    </script>
 </body>
 
 </html>
