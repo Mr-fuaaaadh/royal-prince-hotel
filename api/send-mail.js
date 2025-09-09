@@ -1,13 +1,13 @@
-import nodemailer from "nodemailer";
+const nodemailer = require("nodemailer");
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method === "POST") {
     const { name, email, comments } = req.body;
 
     let transporter = nodemailer.createTransport({
-      host: "smtp.royalprincehotels.com", // Replace with your SMTP server
+      host: "smtp.royalprincehotels.com",
       port: 465,
-      secure: true, // true for 465, false for other ports  
+      secure: true,
       auth: {
         user: "contact@royalprincehotels.com",
         pass: "Mubeer@123"
@@ -23,9 +23,9 @@ export default async function handler(req, res) {
       });
       res.status(200).json({ message: "Email sent successfully!" });
     } catch (error) {
-      res.status(500).json({ message: "Error sending email", error });
+      res.status(500).json({ message: "Error sending email", error: error.toString() });
     }
   } else {
     res.status(405).json({ message: "Method not allowed" });
   }
-}
+};
