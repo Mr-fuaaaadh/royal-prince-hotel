@@ -6,8 +6,8 @@ export default async function handler(req, res) {
 
     let transporter = nodemailer.createTransport({
       host: "smtp.royalprincehotels.com", // Replace with your SMTP server
-      port: 587,
-      secure: false,
+      port: 465,
+      secure: true, // true for 465, false for other ports  
       auth: {
         user: "contact@royalprincehotels.com",
         pass: "Mubeer@123"
