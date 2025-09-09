@@ -23,8 +23,10 @@ module.exports = async function handler(req, res) {
       });
       res.status(200).json({ message: "Email sent successfully!" });
     } catch (error) {
+      console.error("Email sending error:", error);  // <-- Add this line
       res.status(500).json({ message: "Error sending email", error: error.toString() });
     }
+
   } else {
     res.status(405).json({ message: "Method not allowed" });
   }
