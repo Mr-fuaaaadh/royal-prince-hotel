@@ -1,39 +1,29 @@
-const nodemailer = require("nodemailer");
+// /api/send-mail.js
+require('dotenv').config();
+const sgMail = require('@sendgrid/mail');
+
+sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
 
 module.exports = async function sendMailHandler(req, res) {
-  if (req.method === "POST") {
+  if (req.method === 'POST') {
     const { name, email, comments } = req.body;
 
-    console.log("EMAIL_HOST:", process.env.EMAIL_HOST);
-    console.log("EMAIL_PORT:", process.env.EMAIL_PORT);
-    console.log("EMAIL_USER:", process.env.EMAIL_USER);
-    console.log("EMAIL_PASS:", process.env.EMAIL_PASS ? "********" : "Not Set");
-
-    let transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST,
-      port: parseInt(process.env.EMAIL_PORT),
-      secure: true, // true for 465, false for 587
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-      }
-    });
-
-
+    const msg = {
+      to: process.env.EMAIL_USER,   // നിങ്ങൾക്ക് കിട്ടാൻ ആഗ്രഹിക്കുന്ന ഇമെയിൽ
+      from: process.env.EMAIL_USER, // **SendGrid-verified email**
+      replyTo: email,               // ഫോമിൽ നൽകിയ യൂസർ ഇമെയിൽ
+      subject: `New Contact Form Submission from ${name}`,
+      text: `Name: ${name}\nEmail: ${email}\nMessage:\n${comments}`,
+    };
 
     try {
-      await transporter.sendMail({
-        from: `"${name}" <${email}>`,
-        to: process.env.EMAIL_USER,
-        subject: "New Contact Form Submission",
-        text: `Name: ${name}\nEmail: ${email}\nMessage:\n${comments}`
-      });
-      res.status(200).json({ message: "Email sent successfully!" });
+      await sgMail.send(msg);
+      res.status(200).json({ message: 'Email sent successfully via SendGrid!' });
     } catch (error) {
-      console.error("Email sending error:", error);
-      res.status(500).json({ message: "Error sending email", error: error.toString() });
+      console.error('SendGrid error:', error.response?.body || error);
+      res.status(500).json({ message: 'Error sending email via SendGrid', error: error.toString() });
     }
   } else {
-    res.status(405).json({ message: "Method not allowed" });
+    res.status(405).json({ message: 'Method not allowed' });
   }
 };
