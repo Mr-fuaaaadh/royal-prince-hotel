@@ -439,23 +439,42 @@
     <script src="js/map.js"></script>
 
     <script>
-        document.getElementById("contactform").addEventListener("submit", async (e) => {
+        const contactForm = document.getElementById("contactform");
+        const messageEl = document.getElementById("message");
+
+        contactForm.addEventListener("submit", async (e) => {
             e.preventDefault();
-            const formData = Object.fromEntries(new FormData(e.target).entries());
+            messageEl.textContent = "";
+            messageEl.style.color = "";
+
+            const formData = Object.fromEntries(new FormData(contactForm).entries());
+
             try {
                 const res = await fetch("/api/send-mail", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(formData)
                 });
+
                 const result = await res.json();
-                alert(result.message);
-                e.target.reset();
+
+                if (res.ok) {
+                    messageEl.textContent = result.message;
+                    messageEl.style.color = "green";
+                    contactForm.reset();
+                } else {
+                    messageEl.textContent = result.message || "Error sending message.";
+                    messageEl.style.color = "red";
+                }
             } catch (err) {
-                alert("Error sending message. Try again.");
+                messageEl.textContent = "Error sending message.";
+                messageEl.style.color = "red";
+                console.error("Fetch error:", err);
             }
         });
+
     </script>
+
 </body>
 
 </html>
